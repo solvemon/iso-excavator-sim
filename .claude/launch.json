@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "digger",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "5191"],
+      "port": 5191
+    }
+  ]
+}
