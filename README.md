@@ -11,7 +11,7 @@ A toy excavator for two Joy-Cons (or any two-stick gamepad), using the ISO contr
 
 ## Run
 
-Play it at https://solvemon.github.io/iso-excavator-sim/ (deployed from `main` by GitHub Actions), or run it locally.
+Play it at https://digger.codeflex.no/ (deployed from `main` by GitHub Actions), or run it locally.
 
 No build step. Three.js loads from a CDN. Serve the folder over localhost (the Gamepad API needs a secure context):
 
