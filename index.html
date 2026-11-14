@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digger</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #cfd8dc; font: 13px/1.4 system-ui, sans-serif; }
+    canvas { display: block; }
+    #hud { position: absolute; top: 12px; left: 12px; width: 280px; padding: 12px; border-radius: 10px; background: rgba(20, 22, 26, 0.82); color: #e8e8e8; }
+    #hud h1 { margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+    #status { margin-bottom: 10px; color: #f2b705; }
+    .row { display: grid; grid-template-columns: 82px 1fr; align-items: center; gap: 8px; margin: 4px 0; }
+    .track { position: relative; height: 10px; border-radius: 5px; background: #3a3d44; }
+    .track::after { content: ''; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: #777; }
+    .fill { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: #f2b705; }
+    .buttons { display: flex; gap: 6px; margin: 10px 0 6px; }
+    button { flex: 1; padding: 6px; border: 0; border-radius: 6px; background: #3a3d44; color: #e8e8e8; font: inherit; cursor: pointer; }
+    button:hover { background: #4a4e57; }
+    #job { font-size: 14px; font-weight: 600; }
+    #next { margin: 2px 0 10px; color: #f2b705; }
+    #complete { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 28px 40px; border-radius: 14px; background: rgba(20, 22, 26, 0.9); color: #e8e8e8; text-align: center; }
+    #complete h2 { margin: 0 0 8px; font-size: 26px; color: #3ddc84; }
+    #complete button { margin-top: 16px; padding: 10px 20px; font-size: 15px; background: #f2b705; color: #1a1a1a; }
+    #raw { margin: 6px 0; font: 11px/1.4 ui-monospace, monospace; white-space: pre; color: #aaa; }
+    .help { color: #999; font-size: 12px; }
+    #training { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); min-width: 340px; padding: 14px 20px; border-radius: 10px; background: rgba(20, 22, 26, 0.82); color: #e8e8e8; text-align: center; }
+    #training .prompt { font-size: 18px; font-weight: 600; color: #f2b705; }
+    #training .feedback { min-height: 18px; margin-top: 6px; color: #ccc; }
+    kbd { padding: 0 4px; border-radius: 3px; background: #3a3d44; font: 11px ui-monospace, monospace; }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="hud">
+    <h1>Digger · ISO pattern</h1>
+    <div id="status"></div>
+    <div id="job"></div>
+    <div id="next"></div>
+    <div id="bars"></div>
+    <div class="buttons">
+      <button id="rotate-left">Rotate L stick</button>
+      <button id="rotate-right">Rotate R stick</button>
+    </div>
+    <div id="raw"></div>
+    <div class="help">
+      Keys: <kbd>W</kbd><kbd>S</kbd> stick · <kbd>A</kbd><kbd>D</kbd> swing ·
+      <kbd>I</kbd><kbd>K</kbd> boom · <kbd>J</kbd><kbd>L</kbd> bucket ·
+      <kbd>V</kbd> cab view · <kbd>T</kbd> ghost training · <kbd>N</kbd> new target · <kbd>H</kbd> hide panel · <kbd>M</kbd> new map<br>
+      Tracks: <kbd>L</kbd>/<kbd>ZL</kbd> left fwd/rev, <kbd>R</kbd>/<kbd>ZR</kbd> right fwd/rev (keys <kbd>Q</kbd>/<kbd>Z</kbd>, <kbd>E</kbd>/<kbd>C</kbd>)<br>
+      Hold <kbd>↑</kbd> (left) and move the right stick, or <kbd>X</kbd> (right) and the left stick, or arrow keys, to move the camera
+    </div>
+  </div>
+  <div id="complete" hidden>
+    <h2>Map complete!</h2>
+    <div>All piles moved. Nice digging.</div>
+    <button>New map</button>
+    <div class="help">or press <kbd>Enter</kbd> / <kbd>+</kbd> on the Joy-Con</div>
+  </div>
+  <div id="training" hidden>
+    <div class="prompt">Put the bucket in the ghost</div>
+    <div class="feedback"></div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
